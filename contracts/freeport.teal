@@ -1,0 +1,203 @@
+#pragma version 3
+int 0
+txn ApplicationID
+==
+bnz creation
+
+
+int UpdateApplication
+txn OnCompletion
+==
+bnz updateApp
+
+
+int DeleteApplication
+txn OnCompletion
+==
+bnz DeleteApp
+
+byte "Creator"
+app_global_get
+gtxn 0 AssetSender
+==
+bnz txSentFromCreator
+
+txSentFromCreator:
+global GroupSize
+int 10
+==
+gtxn 0 AssetAmount
+int 1 
+==
+&&
+gtxn 1 Receiver
+gtxn 0 AssetSender
+==
+&&
+byte "Neil"
+app_global_get
+gtxn 3 Receiver
+==
+&&
+byte "Sarah"
+app_global_get
+gtxn 4 Receiver
+==
+&&
+byte "Alice"
+app_global_get
+gtxn 5 Receiver
+==
+&&
+byte "Juan"
+app_global_get
+gtxn 6 Receiver
+==
+&&
+byte "Alexandra"
+app_global_get
+gtxn 7 Receiver
+==
+&&
+byte "Amanda"
+app_global_get
+gtxn 8 Receiver
+==
+&&
+byte "Hirad"
+app_global_get
+gtxn 9 Receiver
+==
+&&
+gtxn 3 Amount
+gtxn 4 Amount
++
+gtxn 5 Amount
++
+gtxn 6 Amount
++
+gtxn 7 Amount
++
+gtxn 8 Amount
++
+gtxn 9 Amount
++
+gtxn 1 Amount
++
+store 10
+gtxn 3 Amount
+int 100
+*
+load 10
+/
+int 10
+==
+&&
+gtxn 4 Amount
+int 100
+*
+load 10
+/
+int 10
+==
+&&
+gtxn 5 Amount
+int 100
+*
+load 10
+/
+int 10
+==
+&&
+gtxn 6 Amount
+int 100
+*
+load 10
+/
+int 10
+==
+&&
+gtxn 7 Amount
+int 100
+*
+load 10
+/
+int 10
+==
+&&
+gtxn 8 Amount
+int 100
+*
+load 10
+/
+int 10
+==
+&&
+gtxn 9 Amount
+int 100
+*
+load 10
+/
+int 10
+==
+&&
+gtxn 1 Amount
+int 100
+*
+load 10
+/
+int 30
+==
+&&
+byte "Price"
+app_global_get
+load 10
+==
+&&
+return
+
+creation:
+byte "Creator"
+txn Sender
+app_global_put
+byte "Neil"
+gtxna 1 ApplicationArgs 2
+app_global_put
+byte "Sarah"
+gtxna 1 ApplicationArgs 3
+app_global_put
+byte "Alice"
+gtxna 1 ApplicationArgs 4
+app_global_put
+byte "Juan"
+gtxna 1 ApplicationArgs 5
+app_global_put
+byte "Alexandra"
+gtxna 1 ApplicationArgs 6
+app_global_put
+byte "Amanda"
+gtxna 1 ApplicationArgs 7 
+app_global_put
+byte "Hirad"
+gtxna 1 ApplicationArgs 8
+app_global_put
+byte "Price"
+gtxna 1 ApplicationArgs 0
+btoi
+app_global_put
+int 1
+return
+
+updateApp:
+byte "Creator"
+app_global_get
+txn Sender
+==
+return
+
+DeleteApp:
+byte "Creator"
+app_global_get
+txn Sender
+==
+return
