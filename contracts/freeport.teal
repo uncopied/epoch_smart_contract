@@ -22,6 +22,149 @@ gtxn 0 AssetSender
 ==
 bnz txSentFromCreator
 
+global GroupSize
+int 11
+==
+gtxn 3 AssetAmount
+int 1 
+==
+&&
+byte "Creator"
+app_global_get
+gtxn 0 Receiver
+==
+&&
+byte "Neil"
+app_global_get
+gtxn 4 Receiver
+==
+&&
+byte "Sarah"
+app_global_get
+gtxn 5 Receiver
+==
+&&
+byte "Alice"
+app_global_get
+gtxn 6 Receiver
+==
+&&
+byte "Juan"
+app_global_get
+gtxn 7 Receiver
+==
+&&
+byte "Alexandra"
+app_global_get
+gtxn 8 Receiver
+==
+&&
+byte "Amanda"
+app_global_get
+gtxn 9 Receiver
+==
+&&
+byte "Hirad"
+app_global_get
+gtxn 10 Receiver
+==
+&&
+gtxn 4 Amount
+gtxn 5 Amount
++
+gtxn 6 Amount
++
+gtxn 7 Amount
++
+gtxn 8 Amount
++
+gtxn 9 Amount
++
+gtxn 10 Amount
++
+gtxn 1 Amount
++
+gtxn 0 Amount
++
+store 11
+load 11
+int 20
+*
+int 100
+/
+store 12
+gtxn 0 Amount
+int 100
+*
+load 12
+/
+int 30
+==
+&&
+gtxn 4 Amount
+int 100
+*
+load 12
+/
+int 10
+==
+&&
+gtxn 5 Amount
+int 100
+*
+load 12
+/
+int 10
+==
+&&
+gtxn 6 Amount
+int 100
+*
+load 12
+/
+int 10
+==
+&&
+gtxn 7 Amount
+int 100
+*
+load 12
+/
+int 10
+==
+&&
+gtxn 8 Amount
+int 100
+*
+load 12
+/
+int 10
+==
+&&
+gtxn 9 Amount
+int 100
+*
+load 12
+/
+int 10
+==
+&&
+gtxn 10 Amount
+int 100
+*
+load 12
+/
+int 10
+==
+&&
+return
+
+
+
+
+
+
+
 txSentFromCreator:
 global GroupSize
 int 10
