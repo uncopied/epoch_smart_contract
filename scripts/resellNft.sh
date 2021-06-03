@@ -5,7 +5,7 @@ goal clerk send --from WOOWCYJU4DV3LY4BFTRVIF3B3XRQF67YXBM64VC3NJN3OY35C4APYBW6E
 # Payment from new buyer to previous buyer
 goal clerk send --from WOOWCYJU4DV3LY4BFTRVIF3B3XRQF67YXBM64VC3NJN3OY35C4APYBW6EY --to XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --amount 8000000 --out unsignedSend.tx
 # App Call Transaction
-goal app call --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --app-id 15994703 --out unsignedPriceCall.tx
+goal app call --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --app-id 15994703 --out unsignedFreeportCall.tx
 # Asset send transaction
 goal asset send --amount 1 --assetid 15994702      --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to WOOWCYJU4DV3LY4BFTRVIF3B3XRQF67YXBM64VC3NJN3OY35C4APYBW6EY --clawback  PF4EFRLGWLL6DVZUM6QSJNQSVUL52NPE4NU5D4RHD6CLOMDBE2QT5YK2NE  --out unsignedAssetSend.tx
 
@@ -19,7 +19,7 @@ goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2B
 
 
 
-cat unsignedSendA.tx  unsignedSend.tx unsignedPriceCall.tx  unsignedAssetSend.tx    unsignedSend0.tx unsignedSend1.tx unsignedSend2.tx unsignedSend3.tx unsignedSend4.tx unsignedSend5.tx unsignedSend6.tx > combinedNftTransactions.tx
+cat unsignedSendA.tx  unsignedSend.tx unsignedFreeportCall.tx  unsignedAssetSend.tx    unsignedSend0.tx unsignedSend1.tx unsignedSend2.tx unsignedSend3.tx unsignedSend4.tx unsignedSend5.tx unsignedSend6.tx > combinedNftTransactions.tx
 
 
 goal clerk group -i combinedNftTransactions.tx -o groupedNftTransactions.tx 

@@ -328,7 +328,18 @@ byte "Price"
 gtxna 1 ApplicationArgs 0
 btoi
 app_global_put
+
+global GroupSize
+int 2
+>=
+gtxn 0 TypeEnum
+int acfg
+==
+&&
+gtxn 0 ConfigAssetDefaultFrozen
 int 1
+==
+&&
 return
 
 updateApp:
