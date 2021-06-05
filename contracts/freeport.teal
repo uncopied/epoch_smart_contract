@@ -94,67 +94,67 @@ int 100
 /
 store 12
 gtxn 0 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 30
+int 125
 ==
 &&
 gtxn 4 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 5 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 6 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 7 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 8 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 9 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 10 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 return

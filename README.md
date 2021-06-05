@@ -23,11 +23,11 @@ We are going to solve this particular problem using an Atomic transaction that c
 - The fourth to 10th transaction send  10% of the initial sale to 7 other artists
 
 ## A buyer giving or selling his NFT to a new Buyer
-- The first transaction sends 30% of 20% of the new sale to  Epoch(Creator of the Contract)
+- The first transaction sends 12.5% of 20% of the new sale to  Epoch(Creator of the Contract)
 - The second transaction sends 80% of the new sale to the seller of the NFT
 - The third transaction makes the application call.
 - The fourth transaction sends the NFT to the new buyer 
-- The fifth to eleventh transaction sends 10% each of 20% of the new sale to the 7 artists
+- The fifth to eleventh transaction sends 12.5% each of 20% of the new sale to the 7 artists
 
 # Order Of Transactions For A Royalty Transaction To Take Place
 1. An atomic transaction that creates an asset with default frozen true and also a stateful smart contract which stores the price of a single unit of the NFT, the address of the sender of the **create application** call  transaction along with the address of the 7 other artists that receive royalties
@@ -308,6 +308,7 @@ And finally we return.
 So let's proceed to the lines after our `bnz txSentFromCreator` line:
 Do note that this is the line of code that executes if its a secondary sale
 ```
+
 global GroupSize
 int 11
 ==
@@ -380,67 +381,67 @@ int 100
 /
 store 12
 gtxn 0 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 30
+int 125
 ==
 &&
 gtxn 4 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 5 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 6 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 7 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 8 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 9 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 gtxn 10 Amount
-int 100
+int 1000
 *
 load 12
 /
-int 10
+int 125
 ==
 &&
 return
@@ -450,12 +451,12 @@ We make the following checks for secondary sales in the code above:
 
 - We check that there at exactly 11 transactions
 - We check that the asset amount transferred in the fourth transaction is equal to 1
-- We make sure that the Creator of the application is the receiver of the 30% of 20% of the new sale in the first transaction.
+- We make sure that the Creator of the application is the receiver of the 12.5% of 20% of the new sale in the first transaction.
 - We make sure that the receivers in transaction 5 to 11 are equal to the address of the 7 artists we saved earlier.
 - We add up all the amounts in all the transactions and store it to the scratch space
 - We store 20 % of the total amount in all transactions to the scratchspace
-- We check that the amount sent in the first transaction to the creator is equal to 30% of the 20% the total transaction
-- We check that the amount sent in transaction 5 to 11 is equal to 10% of the 20% of the total transaction.
+- We check that the amount sent in the first transaction to the creator is equal to 12.5% of the 20% the total transaction
+- We check that the amount sent in transaction 5 to 11 is equal to 12.5% of the 20% of the total transaction.
 
 # Stateless Smart Contract
 Let's create a file and call it Epoch.teal, this file will house our stateless smart contract which when compiled will be used as our clawback address, let's look at the code for this file
@@ -637,8 +638,8 @@ goal asset send -a 0 -f WOOWCYJU4DV3LY4BFTRVIF3B3XRQF67YXBM64VC3NJN3OY35C4APYBW6
 Then we can send the new buyer the NFT while also sending the percent of the amount transferred to the Creator and the other seven artists :
 
 ```bash
-# 30% OF 20% payment
-goal clerk send --from WOOWCYJU4DV3LY4BFTRVIF3B3XRQF67YXBM64VC3NJN3OY35C4APYBW6EY --to 6OQQDT3FI2FY4TY6XFW7I7QFTSTQWH2TP3AF5U3W42TR6SMQPXEJX7TZAA  --amount 120000 --out unsignedSendA.tx
+# 12.5% OF 20% payment
+goal clerk send --from WOOWCYJU4DV3LY4BFTRVIF3B3XRQF67YXBM64VC3NJN3OY35C4APYBW6EY --to 6OQQDT3FI2FY4TY6XFW7I7QFTSTQWH2TP3AF5U3W42TR6SMQPXEJX7TZAA  --amount 50000 --out unsignedSendA.tx
 # Payment from new buyer to previous buyer
 goal clerk send --from WOOWCYJU4DV3LY4BFTRVIF3B3XRQF67YXBM64VC3NJN3OY35C4APYBW6EY --to XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --amount 1600000 --out unsignedSend.tx
 # App Call Transaction
@@ -646,13 +647,13 @@ goal app call --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY 
 # Asset send transaction
 goal asset send --amount 1 --assetid 16016195       --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to WOOWCYJU4DV3LY4BFTRVIF3B3XRQF67YXBM64VC3NJN3OY35C4APYBW6EY --clawback  XA5WEWCKTSR246S7I566J7NLGSBH24QUUAWYOSMBBZOI2DQDFHUB2GO2RU  --out unsignedAssetSend.tx
 
-goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to BN5DMMUOAJCR4SZUGPK3ICQFZ3JXSS24GWDY2B6P56K2SH4EADO6XN56GQ --amount 40000 --out unsignedSend0.tx
-goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to DG5UXOMPCEPT2SKQ4UJMRNEYDCOABYM3EFR4UW6E3OXF2ME2LF5APS5KLA --amount 40000 --out unsignedSend1.tx
-goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to DQIEID66TVX55BYECL7UUPIB2OE5ZQGNMFDLE7HRQDNGLTG3UXRBBXOWF4 --amount 40000 --out unsignedSend2.tx
-goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to EJKLHQS5GRXAKEY2U62YIFBSZPMVTDPL6EQD7XKNN7A33Z7XSYPUCMOODQ --amount 40000 --out unsignedSend3.tx
-goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to F5N2DN7KIX5EL646GMGV4AQVZHGQJBEIFJR3FEIDVAZP7RGUTBU7LGRRO4 --amount 40000 --out unsignedSend4.tx
-goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to JYURMSAFWF3BFC6ZJ2WXNQFHBKZONXSVLB6GIH3EH4ZA7Y4PPITDZYVDXU --amount 40000 --out unsignedSend5.tx
-goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to VEKJYW4IIOKGVBI67S5VDQB7ZOHPGJPLRXMI2GG53BAYTB6MZA27S4ALQA --amount 40000 --out unsignedSend6.tx
+goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to BN5DMMUOAJCR4SZUGPK3ICQFZ3JXSS24GWDY2B6P56K2SH4EADO6XN56GQ --amount 50000 --out unsignedSend0.tx
+goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to DG5UXOMPCEPT2SKQ4UJMRNEYDCOABYM3EFR4UW6E3OXF2ME2LF5APS5KLA --amount 50000 --out unsignedSend1.tx
+goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to DQIEID66TVX55BYECL7UUPIB2OE5ZQGNMFDLE7HRQDNGLTG3UXRBBXOWF4 --amount 50000 --out unsignedSend2.tx
+goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to EJKLHQS5GRXAKEY2U62YIFBSZPMVTDPL6EQD7XKNN7A33Z7XSYPUCMOODQ --amount 50000 --out unsignedSend3.tx
+goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to F5N2DN7KIX5EL646GMGV4AQVZHGQJBEIFJR3FEIDVAZP7RGUTBU7LGRRO4 --amount 50000 --out unsignedSend4.tx
+goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to JYURMSAFWF3BFC6ZJ2WXNQFHBKZONXSVLB6GIH3EH4ZA7Y4PPITDZYVDXU --amount 50000 --out unsignedSend5.tx
+goal clerk send --from XHFRWIODL7MFJNCWURZY6USPIWUZTQ2X6EWCJ7SWSRKJPUN4LYHO5XK2BY --to VEKJYW4IIOKGVBI67S5VDQB7ZOHPGJPLRXMI2GG53BAYTB6MZA27S4ALQA --amount 50000 --out unsignedSend6.tx
 
 
 
@@ -689,6 +690,7 @@ goal clerk sign -i splitNft-10.tx -o signoutNft-10.tx
 cat signoutNft-0.tx signoutNft-1.tx signoutNft-2.tx signoutNft-3.tx signoutNft-4.tx signoutNft-5.tx signoutNft-6.tx signoutNft-7.tx signoutNft-8.tx signoutNft-9.tx signoutNft-10.tx  > signoutNft.tx
 
 goal clerk rawsend -f signoutNft.tx
+
 ```
 
 In the example above 1 unit of our NFT is resold for 2 algo, meaning our Creator gets  0.12 algo(30% of 20% of 2 algo), we send 0.04(10% 0f 20% of 2 algo) algo to our remaining artists, we send 1.6 algo(80% of 2 algo) to the previous buyer.
