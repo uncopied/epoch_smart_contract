@@ -20,6 +20,83 @@ byte "Creator"
 app_global_get
 gtxn 0 AssetSender
 ==
+byte "Neil"
+app_global_get
+gtxn 0 AssetReceiver
+==
+&&
+bnz txToArtist
+
+byte "Creator"
+app_global_get
+gtxn 0 AssetSender
+==
+byte "Sarah"
+app_global_get
+gtxn 0 AssetReceiver
+==
+&&
+bnz txToArtist
+
+byte "Creator"
+app_global_get
+gtxn 0 AssetSender
+==
+byte "Alice"
+app_global_get
+gtxn 0 AssetReceiver
+==
+&&
+bnz txToArtist
+
+byte "Creator"
+app_global_get
+gtxn 0 AssetSender
+==
+byte "Juan"
+app_global_get
+gtxn 0 AssetReceiver
+==
+&&
+bnz txToArtist
+
+byte "Creator"
+app_global_get
+gtxn 0 AssetSender
+==
+byte "Alexandra"
+app_global_get
+gtxn 0 AssetReceiver
+==
+&&
+bnz txToArtist
+
+byte "Creator"
+app_global_get
+gtxn 0 AssetSender
+==
+byte "Amanda"
+app_global_get
+gtxn 0 AssetReceiver
+==
+&&
+bnz txToArtist
+
+byte "Creator"
+app_global_get
+gtxn 0 AssetSender
+==
+byte "Hirad"
+app_global_get
+gtxn 0 AssetReceiver
+==
+&&
+bnz txToArtist
+
+byte "Creator"
+app_global_get
+gtxn 0 AssetSender
+==
 bnz txSentFromCreator
 
 global GroupSize
@@ -297,6 +374,18 @@ app_global_get
 load 10
 ==
 &&
+byte "edition"
+app_global_get
+int 1
++
+store 13
+byte "edition"
+load 13
+app_global_put
+load 13
+int 5
+<=
+&&
 return
 
 creation:
@@ -328,6 +417,11 @@ byte "Price"
 gtxna 1 ApplicationArgs 0
 btoi
 app_global_put
+byte "edition"
+int 0
+app_global_put
+
+
 
 global GroupSize
 int 2
@@ -340,6 +434,7 @@ gtxn 0 ConfigAssetDefaultFrozen
 int 1
 ==
 &&
+
 return
 
 updateApp:
@@ -355,3 +450,8 @@ app_global_get
 txn Sender
 ==
 return
+
+
+txToArtist:
+int 1
+return 
